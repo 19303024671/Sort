@@ -30,3 +30,5 @@ public:
 };
 //获取四个坐标以及对应的点
 vector<Points> GetPoints(const ImgInfo& img_info);
+//仿射变换
+cv::Mat TranImg(const cv::Mat& input_img, const vector<Points>& ps);

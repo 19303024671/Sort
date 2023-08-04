@@ -38,7 +38,21 @@ vector<Points> GetPoints(const ImgInfo& img_info)
 	return ps;
 }
 
-
+cv::Mat TranImg(const cv::Mat& input_img, const vector<Points>& ps)
+{
+	if (ps.empty()) return cv::Mat();
+	vector<cv::Point2f>input;
+	vector<cv::Point2f>output;
+	for (const auto& p : ps)
+	{
+		input.push_back(p.scan_pos);
+		output.push_back(p.cal_pos);
+	}
+	cv::Mat matrix = cv::getPerspectiveTransform(input, output);
+	cv::Mat tran_img;
+	cv::warpPerspective(input_img, tran_img, matrix, cv::Size(2048, 1536));
+	return tran_img;
+}
 
 ImgInfo::ImgInfo(const string& path, const CCTColor& color, int N, const vector<int>& save)
 	: path(path), color(color), N(N), save(save)

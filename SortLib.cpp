@@ -66,7 +66,7 @@ cv::Mat TranImg(const ImgInfo& img_info)
 	}
 	cv::Mat matrix = cv::getPerspectiveTransform(input, output);
 	cv::Mat tran_img;
-	cv::warpPerspective(input_img, tran_img, matrix, cv::Size(1.5*input_img.cols, 1.5*input_img.rows));
+	cv::warpPerspective(input_img, tran_img, matrix, cv::Size(int(1.5*input_img.cols), int(1.5*input_img.rows)));
 	string save_file_path = img_info.path;
 	save_file_path = save_file_path.replace(save_file_path.find("test_img"), 8, "sort_img");
 	cv::imwrite(save_file_path, tran_img);
